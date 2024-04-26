@@ -1,7 +1,7 @@
 # React Application Deployment on Apache using Jenkins with GitHub 🛠
 ## Table of Contents
 1. [Overview](#overview)
-2. [Configure Jenkins Master Node](#configure-jenkins-master-node)
+2. [Configure Jenkins Master Node on Ubuntu Server](#configure-jenkins-master-node-on-ubuntu-server)
     - [Update and Upgrade System Packages](#update-and-upgrade-system-packages)
     - [Install Java](#install-java)
     - [Installing Jenkins](#installing-jenkins)
