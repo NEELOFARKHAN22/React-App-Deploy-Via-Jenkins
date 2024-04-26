@@ -95,6 +95,49 @@ If you need to allow access from anywhere to a specific port on your firewall, y
 ```bash
 sudo ufw allow 8080
 ```
+## Configure Jenkins Slave Node on Ubuntu Server
+
+To configure a Jenkins slave node on your Ubuntu server, follow the initial steps outlined in the [master node configuration](#configure-jenkins-master-node-on-ubuntu-server) README section.
+
+After completing the initial steps, proceed with configuring the Jenkins slave node as required for your environment. This may include specifying the Jenkins master's address, setting up SSH keys for communication, and configuring node-specific settings in the Jenkins web interface.
+
+By referencing the master node configuration, you ensure consistency and efficiency in setting up your Jenkins environment.
+## Setting up Jenkins Master-Slave Architecture
+
+### Step 3: Configure Jenkins to Use Slave Nodes
+
+####  Add each slave node as a new node configuration
+
+- To configure Jenkins to use slave nodes, follow these steps:
+
+1. Log in to the Jenkins master web interface.
+
+2. Navigate to the `Manage Jenkins` > `Manage Nodes and Clouds` section.
+
+3. Click on the `New Node` or `New Agent` button to add a new node configuration.
+
+4. Enter a descriptive name for the slave node in the `Node name` field.
+
+5. Select the option to `Permanent Agent` or `Permanent Node` depending on your Jenkins version.
+
+6. Specify the necessary details for the slave node:
+   - **Remote root directory**: The directory where Jenkins will store files on the slave node.
+   - **Labels**: Assign one or more labels to the node to identify its capabilities or characteristics.
+   - **Launch method**: Choose "Launch agent via SSH" to connect to the slave node using SSH.
+   - **Host**: Enter the IP address or hostname of the slave node.
+   - **Credentials**: Select or add SSH credentials to authenticate with the slave node. This typically involves providing a username and private key.
+   - **Java Path**: Specify the path to the Java executable on the slave node (if necessary).
+   - **Usage**: Determine how Jenkins should use this node, such as for builds or as part of a cloud environment.
+
+7. Click on the `Save` or `Add` button to save the configuration changes.
+
+8. After saving the configuration, Jenkins will attempt to connect to the slave node using the provided SSH credentials. If successful, the slave node will appear in the list of available nodes.
+
+9. Repeat these steps for each additional slave node you want to add to Jenkins.
+
+By following these steps, you can configure Jenkins to use slave nodes via SSH, enabling distributed builds and improving the efficiency of your Jenkins environment.
+
+
 
 
 ## Table of Contents
