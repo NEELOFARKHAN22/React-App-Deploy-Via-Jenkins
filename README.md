@@ -1,4 +1,4 @@
-# 🚀 React Application Deployment on Apache using Jenkins with GitHub 🛠️
+# React Application Deployment on Apache using Jenkins with GitHub 🛠
 
 ## Overview
 Setting up a Jenkins master-slave architecture, deploying a React application from GitHub to an Apache server via Jenkins, and ensuring high availability with zero downtime. 
