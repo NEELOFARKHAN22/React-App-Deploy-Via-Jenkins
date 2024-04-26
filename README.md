@@ -1,4 +1,4 @@
-## 🚀 React Application Deployment on Apache using Jenkins with GitHub 🛠️
+# 🚀 React Application Deployment on Apache using Jenkins with GitHub 🛠️
 
 ## Overview
 Setting up a Jenkins master-slave architecture, deploying a React application from GitHub to an Apache server via Jenkins, and ensuring high availability with zero downtime. 
@@ -10,9 +10,9 @@ sudo apt update
 sudo apt upgrade -y
 ```
 ### Step 2: Install Java
-    ```
-        sudo apt install openjdk-11-jdk -y
-    ```
+```
+ sudo apt install openjdk-11-jdk -y
+```
 Check the installed Java version:
 ```
  java -version
@@ -104,7 +104,7 @@ sudo ufw allow 8080
 - By referencing the master node configuration, you ensure consistency and efficiency in setting up your Jenkins environment.
 ## Setting up Jenkins Master-Slave Architecture
 
-### Step 3: Configure Jenkins to Use Slave Nodes
+### Step 1: Configure Jenkins to Use Slave Nodes
 
 ####  Add each slave node as a new node configuration
 
@@ -137,8 +137,145 @@ To configure Jenkins to use slave nodes, follow these steps:
 
 By following these steps, you can configure Jenkins to use slave nodes via SSH, enabling distributed builds and improving the efficiency of your Jenkins environment.
 
+## Integrating GitHub with Jenkins
 
+### Step 1: Install GitHub Plugin
 
+1. Log in to the Jenkins master web interface.
+
+2. Navigate to the "Manage Jenkins" > "Manage Plugins" section.
+
+3. Click on the "Available" tab and search for "GitHub Integration Plugin".
+
+4. Check the box next to the "GitHub Integration Plugin" and click "Install without restart" button.
+   
+### Step 2: Configure GitHub Credentials
+
+1. Go to "Manage Jenkins" > "Manage Credentials" > "Jenkins" > "Global credentials".
+
+2. Click on "Add Credentials" and select the appropriate kind of credentials (e.g., Username with password, SSH username with private key).
+
+3. Enter your GitHub username and password or SSH private key, and provide an optional description.
+
+4. Click "OK" to save the credentials.
+   
+### Step 3: Set Up Webhooks in GitHub
+
+1. In your GitHub repository, go to "Settings" > "Webhooks" > "Add webhook".
+
+2. Enter the Payload URL, which should be in the format: `http://JENKINS_SERVER/github-webhook/`.
+
+3. Select the events you want Jenkins to trigger builds for (e.g., Pushes, Pull requests).
+   
+5. Click "Add webhook" to save the configuration.
+### Step 4: Create a Jenkins Job
+
+1. In the Jenkins dashboard, click on "New Item" to create a new job.
+
+2. Enter a name for the job and select the appropriate job type (e.g., Freestyle project, Pipeline).
+
+3. Under the "Source Code Management" section, choose "Git" and enter the URL of your GitHub repository.
+
+4. Optionally, specify the branch or branches to build.
+
+5. Under the "Build Triggers" section, select "GitHub hook trigger for GITScm polling".
+
+6. Configure the build steps according to your project requirements.
+
+7. Save the job configuration.
+   
+### Step 5: Test the Integration
+
+1. Make a change to your GitHub repository (e.g., push a new commit, create a pull request).
+
+2. Monitor the Jenkins dashboard to see if the Jenkins job is triggered automatically.
+
+3. Check the build console output to verify that the build ran successfully.
+## Deploying React App with Apache via Jenkins
+Deploying a React app with Apache allows you to host your application on a web server, making it accessible to users over the internet. Jenkins automates the build and deployment process, ensuring that your app is always up-to-date.
+
+### Step 1: Set Up Jenkins Job
+Use the same job as used in Github integration.
+### Step 2: Configure Jenkins Job Commands
+
+1. In the Jenkins job configuration, add an "Execute shell" build step.
+2. Enter the following commands:
+    ```bash
+    cd /var/jenkins/workspace/apache-react
+    sudo apt-get update
+    sudo npm install -y
+    sudo npm run build
+    cd 
+    sudo apt-get install apache2 -y
+    cd /etc/apache2/sites-available
+    sudo sh -c 'cat <<-EOF > /etc/apache2/sites-available/react.conf
+    <VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/jenkins/workspace/apache-react/build
+        ServerName freelyy.zapto.org
+        ServerAlias freelyy.zapto.org
+        <Directory /var/jenkins/workspace/apache-react/build>
+                Options Indexes FollowSymLinks
+                AllowOverride All
+                Require all granted
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+    EOF'
+    
+    sudo a2ensite react.conf
+    sudo a2dissite 000-default.conf
+    sudo chown -R www-data:www-data /var/jenkins/workspace/apache-react/build
+    sudo chmod -R 755 /var/jenkins/workspace/apache-react/build
+    sudo systemctl restart apache2
+   ```
+This script automates the deployment of a React app with Apache using Jenkins. Here's a simplified explanation of each step:
+
+1. **Navigate to App Directory**: Change directory to the location where the React app is stored (`/var/jenkins/workspace/apache-react`).
+   
+2. **Update Packages**: Update the package list to ensure the latest versions are available (`sudo apt-get update`).
+
+3. **Install Node.js Dependencies**: Install the necessary Node.js dependencies for building the React app (`sudo npm install -y`).
+
+4. **Build React App**: Execute the build command to generate a production-ready version of the React app (`sudo npm run build`).
+
+5. **Install Apache2**: Install the Apache web server to host the React app (`sudo apt-get install apache2 -y`).
+
+6. **Configure Apache Virtual Host**: Create a configuration file (`react.conf`) for Apache, specifying the server settings and document root for the React app.
+
+7. **Enable Site**: Enable the newly created Apache site configuration (`sudo a2ensite react.conf`), making the React app accessible through the specified domain.
+
+8. **Disable Default Site**: Disable the default Apache site configuration (`sudo a2dissite 000-default.conf`) to prevent conflicts.
+
+9. **Set Permissions**: Set appropriate ownership and permissions for the React app directory to ensure Apache can access the files (`sudo chown -R www-data:www-data /var/jenkins/workspace/apache-react/build` and `sudo chmod -R 755 /var/jenkins/workspace/apache-react/build`).
+
+10. **Restart Apache**: Restart the Apache web server to apply the changes and make the React app accessible (`sudo systemctl restart apache2`).
+
+By running this script in Jenkins, you automate the deployment process, making it easier to manage and update your React app.
+## Applying SSL/TLS Certificate to Domain   
+Applying an SSL/TLS certificate involves installing Certbot, obtaining the certificate, configuring your web server (e.g., Apache), and setting up automatic renewal to ensure continuous security.
+### Step 1: Install Certbot
+
+```
+    sudo snap install --classic certbot
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+### Step 2: Obtain SSL Certificate
+```
+    sudo certbot --apache
+```
+### Setting Up SSL Certificate Auto-Renewal
+### Step 1: Open Crontab Configuration
+
+    ```bash
+        sudo crontab -e
+    ```
+### Step 2: Add Renewal Command
+```
+ 0 0 1 */2 * certbot renew --quiet --no-self-upgrade
+```
+This line specifies that Certbot should renew SSL certificates on the 1st day of every second month at midnight (00:00).
 
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
