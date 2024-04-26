@@ -1,5 +1,13 @@
 # React Application Deployment on Apache using Jenkins with GitHub 🛠
-
+## Table of Contents
+- [Overview](#overview)
+- [Configure Jenkins Master Node on Ubuntu Server](#configure-jenkins-master-node-on-ubuntu-server)
+- [Configuring Jenkins Slave Node on Ubuntu Server](#configuring-jenkins-slave-node-on-ubuntu-server)
+- [Integrating GitHub with Jenkins](#integrating-github-with-jenkins)
+- [Deploying React App with Apache via Jenkins](#deploying-react-app-with-apache-via-jenkins)
+- [Applying SSL/TLS Certificate to Domain](#applying-ssltls-certificate-to-domain)
+- [High Availability & Zero Downtime for React Application](#high-availability--zero-downtime-for-react-application)
+- [Conclusion](#conclusion)
 ## Overview
 Setting up a Jenkins master-slave architecture, deploying a React application from GitHub to an Apache server via Jenkins, and ensuring high availability with zero downtime. 
 
