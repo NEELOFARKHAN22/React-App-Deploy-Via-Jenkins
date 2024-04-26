@@ -1,7 +1,7 @@
 ## 🚀 React Application Deployment on Apache using Jenkins with GitHub 🛠️
 
 ## Overview
-Welcome to POC 2.1! This README.md file serves as a comprehensive guide to setting up a Jenkins master-slave architecture, deploying a React application from GitHub to an Apache server via Jenkins, and ensuring high availability with zero downtime. Learn how to automate releases upon changes in the GitHub repository and gain insights into optimizing Jenkins performance.
+Setting up a Jenkins master-slave architecture, deploying a React application from GitHub to an Apache server via Jenkins, and ensuring high availability with zero downtime. 
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
 2. [Architecture](#architecture)
