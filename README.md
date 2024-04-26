@@ -97,18 +97,18 @@ sudo ufw allow 8080
 ```
 ## Configure Jenkins Slave Node on Ubuntu Server
 
-To configure a Jenkins slave node on your Ubuntu server, follow the initial steps outlined in the [master node configuration](#configure-jenkins-master-node-on-ubuntu-server) README section.
+- To configure a Jenkins slave node on your Ubuntu server, follow the initial steps outlined in the [master node configuration](#configure-jenkins-master-node-on-ubuntu-server) README section.
 
-After completing the initial steps, proceed with configuring the Jenkins slave node as required for your environment. This may include specifying the Jenkins master's address, setting up SSH keys for communication, and configuring node-specific settings in the Jenkins web interface.
+- After completing the initial steps, proceed with configuring the Jenkins slave node as required for your environment. This may include specifying the Jenkins master's address, setting up SSH keys for communication, and configuring node-specific settings in the Jenkins web interface.
 
-By referencing the master node configuration, you ensure consistency and efficiency in setting up your Jenkins environment.
+- By referencing the master node configuration, you ensure consistency and efficiency in setting up your Jenkins environment.
 ## Setting up Jenkins Master-Slave Architecture
 
 ### Step 3: Configure Jenkins to Use Slave Nodes
 
 ####  Add each slave node as a new node configuration
 
-- To configure Jenkins to use slave nodes, follow these steps:
+To configure Jenkins to use slave nodes, follow these steps:
 
 1. Log in to the Jenkins master web interface.
 
@@ -123,7 +123,7 @@ By referencing the master node configuration, you ensure consistency and efficie
 6. Specify the necessary details for the slave node:
    - **Remote root directory**: The directory where Jenkins will store files on the slave node.
    - **Labels**: Assign one or more labels to the node to identify its capabilities or characteristics.
-   - **Launch method**: Choose "Launch agent via SSH" to connect to the slave node using SSH.
+   - **Launch method**: Choose `Launch agent via SSH` to connect to the slave node using SSH.
    - **Host**: Enter the IP address or hostname of the slave node.
    - **Credentials**: Select or add SSH credentials to authenticate with the slave node. This typically involves providing a username and private key.
    - **Java Path**: Specify the path to the Java executable on the slave node (if necessary).
