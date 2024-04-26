@@ -1,13 +1,34 @@
 # React Application Deployment on Apache using Jenkins with GitHub 🛠
 ## Table of Contents
-- [Overview](#overview)
-- [Configure Jenkins Master Node on Ubuntu Server](#configure-jenkins-master-node-on-ubuntu-server)
-- [Configuring Jenkins Slave Node on Ubuntu Server](#configuring-jenkins-slave-node-on-ubuntu-server)
-- [Integrating GitHub with Jenkins](#integrating-github-with-jenkins)
-- [Deploying React App with Apache via Jenkins](#deploying-react-app-with-apache-via-jenkins)
-- [Applying SSL/TLS Certificate to Domain](#applying-ssltls-certificate-to-domain)
-- [High Availability & Zero Downtime for React Application](#high-availability--zero-downtime-for-react-application)
-- [Conclusion](#conclusion)
+1. [Overview](#overview)
+2. [Configure Jenkins Master Node](#configure-jenkins-master-node)
+    - [Update and Upgrade System Packages](#update-and-upgrade-system-packages)
+    - [Install Java](#install-java)
+    - [Installing Jenkins](#installing-jenkins)
+    - [Accessing Jenkins Web Interface](#accessing-jenkins-web-interface)
+    - [Finalizing Jenkins Setup](#finalizing-jenkins-setup)
+    - [Installing Jenkins Plugins](#installing-jenkins-plugins)
+    - [Adjusting Firewall for Jenkins Installation](#adjusting-firewall-for-jenkins-installation)
+3. [Configure Jenkins Slave Node](#configure-jenkins-slave-node)
+    - [Setting Up Slave Node](#setting-up-slave-node)
+4. [Integrating GitHub with Jenkins](#integrating-github-with-jenkins)
+    - [Install GitHub Plugin](#install-github-plugin)
+    - [Configure GitHub Credentials](#configure-github-credentials)
+    - [Set Up Webhooks in GitHub](#set-up-webhooks-in-github)
+    - [Create a Jenkins Job](#create-a-jenkins-job)
+    - [Test the Integration](#test-the-integration)
+5. [Deploying React App with Apache via Jenkins](#deploying-react-app-with-apache-via-jenkins)
+    - [Set Up Jenkins Job](#set-up-jenkins-job)
+    - [Configure Jenkins Job Commands](#configure-jenkins-job-commands)
+6. [Applying SSL/TLS Certificate to Domain](#applying-ssltls-certificate-to-domain)
+    - [Install Certbot](#install-certbot)
+    - [Obtain SSL Certificate](#obtain-ssl-certificate)
+    - [Setting Up SSL Certificate Auto-Renewal](#setting-up-ssl-certificate-auto-renewal)
+7. [High Availability & Zero Downtime for React Application](#high-availability--zero-downtime-for-react-application)
+    - [Steps for High Availability](#steps-for-high-availability)
+8. [Conclusion](#conclusion)
+
+
 ## Overview
 Setting up a Jenkins master-slave architecture, deploying a React application from GitHub to an Apache server via Jenkins, and ensuring high availability with zero downtime. 
 
