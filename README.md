@@ -2,6 +2,101 @@
 
 ## Overview
 Setting up a Jenkins master-slave architecture, deploying a React application from GitHub to an Apache server via Jenkins, and ensuring high availability with zero downtime. 
+
+## Configure Jenkins Master Node on Ubuntu Server
+### Step 1: Update and Upgrade System Packages
+```
+sudo apt update
+sudo apt upgrade -y
+```
+### Step 2: Install Java
+    ```
+        sudo apt install openjdk-11-jdk -y
+    ```
+Check the installed Java version:
+```
+ java -version
+```
+You should see output similar to:
+```
+openjdk version "11.0.7" 2020-04-14
+OpenJDK Runtime Environment (build 11.0.7+10-post-Ubuntu-3ubuntu1)
+OpenJDK 64-Bit Server VM (build 11.0.7+10-post-Ubuntu-3ubuntu1, mixed mode, sharing)
+```
+### Step 3: Installing Jenkins
+
+1. Import the Jenkins repository's GPG keys using the following command:
+   ```bash
+   curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io- 
+   2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > 
+   /dev/null
+   ```
+2. Add the Jenkins repository to your system's sources.list:
+   ```
+     echo deb [signed-by=/usr/share/keyrings/jenkins-        
+    keyring.asc]  https://pkg.jenkins.io/debian-stable binary/ |     sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+   ```
+3. Update the package index and install Jenkins:
+   ```
+   sudo apt update
+   sudo apt install jenkins
+   ```
+4. Check the status of the Jenkins service to ensure it's running:
+   ```
+    sudo systemctl status jenkins
+   ```
+### Step 4: Accessing Jenkins Web Interface
+To access the Jenkins web interface, follow these steps:
+
+1. Open a web browser and navigate to the following URL:
+   ```
+   http://YOUR_SERVER_IP_OR_DOMAIN:8080
+   ```
+### Step 5: Finalizing Jenkins Setup
+
+After accessing the Jenkins web interface and completing the initial setup, you will be prompted to:
+
+1. **Copy the path** from the Jenkins dashboard (usually displayed in the browser's address bar).
+2. **Paste the path** into your server's terminal or command prompt.
+   ```
+   sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+   ```
+4. **Copy the generated password** from the Jenkins dashboard.
+5. **Paste the password** into the Jenkins login page.
+6. **Log in** using the **admin credentials** provided during setup.
+### Step 6: Installing Jenkins Plugins
+
+Once logged in, you'll be directed to the Jenkins web interface. Here, you can:
+
+1. **Install Plugins**: Jenkins will prompt you to install plugins to extend its functionality. Choose recommended or specific plugins based on your project needs.
+   
+2. **Explore Jenkins Web UI**: Familiarize yourself with navigation menus, project dashboards, build histories, and configuration options.
+
+3. **Configure Jenkins Settings**: Adjust security settings, set up build triggers, define job configurations, and configure email notifications.
+
+4. **Explore Additional Options**: Discover features such as pipeline scripting, distributed builds, and advanced automation capabilities.
+### Adjusting Firewall for Jenkins Installation
+
+Before installing Jenkins on a firewall-protected remote Ubuntu server, it's essential to adjust the firewall settings to allow access to the Jenkins server.
+
+### Step 1: Open Port 8080
+
+You must open port 8080 on your firewall to allow incoming connections to Jenkins. If you're restricting access to specific IP addresses, follow the appropriate command below:
+
+### Restricting Access to Specific IP Address or Range
+
+```bash
+sudo ufw allow proto tcp from 192.168.121.0/24 to any port 8080
+```
+Allowing Access from Anywhere
+
+If you need to allow access from anywhere to a specific port on your firewall, you can do so using the following command:
+
+```bash
+sudo ufw allow 8080
+```
+
+
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
 2. [Architecture](#architecture)
