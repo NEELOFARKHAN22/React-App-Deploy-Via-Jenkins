@@ -9,7 +9,7 @@
     - [Finalizing Jenkins Setup](#finalizing-jenkins-setup)
     - [Installing Jenkins Plugins](#installing-jenkins-plugins)
     - [Adjusting Firewall for Jenkins Installation](#adjusting-firewall-for-jenkins-installation)
-3. [Configure Jenkins Slave Node](#configure-jenkins-slave-node)
+3. [Configure Jenkins Slave Node on Ubuntu Server](#configure-jenkins-slave-node-on-ubuntu-server)
     - [Setting Up Slave Node](#setting-up-slave-node)
 4. [Integrating GitHub with Jenkins](#integrating-github-with-jenkins)
     - [Install GitHub Plugin](#install-github-plugin)
@@ -27,6 +27,7 @@
 7. [High Availability & Zero Downtime for React Application](#high-availability--zero-downtime-for-react-application)
     - [Steps for High Availability](#steps-for-high-availability)
 8. [Conclusion](#conclusion)
+
 
 
 ## Overview
